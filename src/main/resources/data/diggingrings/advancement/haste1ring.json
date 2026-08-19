@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:netherite_upgrade_smithing_template"
+            "items": "minecraft:netherite_upgrade_smithing_template"
           }
         ]
       }

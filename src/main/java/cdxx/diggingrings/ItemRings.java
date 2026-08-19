@@ -2,11 +2,13 @@ package cdxx.diggingrings;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ItemRings {
 
@@ -14,8 +16,11 @@ public class ItemRings {
     public static Item HASTE2RING;
 
     public static void load() {
-        HASTE1RING = DiggingRings.register(new CustomItem(new Item.Properties(), "item.diggingrings.hasterings.tooltip", "item.diggingrings.haste1ring.tooltip"), "haste1ring");
-        HASTE2RING = DiggingRings.register(new CustomItem(new Item.Properties(), "item.diggingrings.hasterings.tooltip", "item.diggingrings.haste2ring.tooltip"), "haste2ring");
+        ResourceKey<Item> haste1Key = DiggingRings.itemKey("haste1ring");
+        HASTE1RING = DiggingRings.register(new CustomItem(new Item.Properties().setId(haste1Key), "item.diggingrings.hasterings.tooltip", "item.diggingrings.haste1ring.tooltip"), haste1Key);
+
+        ResourceKey<Item> haste2Key = DiggingRings.itemKey("haste2ring");
+        HASTE2RING = DiggingRings.register(new CustomItem(new Item.Properties().setId(haste2Key), "item.diggingrings.hasterings.tooltip", "item.diggingrings.haste2ring.tooltip"), haste2Key);
     }
 
     public static class CustomItem extends Item {
@@ -29,9 +34,9 @@ public class ItemRings {
         }
 
         @Override
-        public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag type) {
-            tooltip.add(Component.translatable(this.tooltipText1).withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.translatable(this.tooltipText2).withStyle(ChatFormatting.GOLD));
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+            textConsumer.accept(Component.translatable(this.tooltipText1).withStyle(ChatFormatting.BLUE));
+            textConsumer.accept(Component.translatable(this.tooltipText2).withStyle(ChatFormatting.GOLD));
         }
     }
 }

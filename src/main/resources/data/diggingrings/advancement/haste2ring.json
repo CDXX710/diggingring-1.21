@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "item": "diggingrings:haste1ring"
+            "items": "diggingrings:haste1ring"
           }
         ]
       }
